@@ -10,6 +10,10 @@ var books =[
     { name: 'The Long Earth', genre: 'Sci-Fi', id: '3' }
 ];
 
+var authors = [
+    { name: 'Terry Prachet', age: 66, id: '1' }
+];
+
 const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: () => ({
@@ -37,6 +41,13 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args) {
                 //get data from db
                 return _.find(books, { id: args.id });
+            }
+        },
+        author: {
+            type: AuthorType,
+            args: { id: { type: GraphQLString } },
+            resolve(parent, args) {
+                return _.find(authors, { id: args.id });
             }
         }
     }
